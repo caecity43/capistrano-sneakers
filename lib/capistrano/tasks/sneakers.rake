@@ -77,13 +77,10 @@ namespace :sneakers do
         check_interval = 0.5
 
         each_process_with_index do |pid_file, idx|
-          2.times do |index|
-            if pid_file_exists?(pid_file) && process_exists?(pid_file)
-              sleep(check_interval)
-              next
-            else
-              start_sneakers(pid_file, idx)
-            end
+          if pid_file_exists?(pid_file) && process_exists?(pid_file)
+            sleep(check_interval)
+          else
+            start_sneakers(pid_file, idx)
           end
         end
       end
