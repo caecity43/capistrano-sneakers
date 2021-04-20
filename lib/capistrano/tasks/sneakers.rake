@@ -77,7 +77,7 @@ namespace :sneakers do
         check_interval = 0.5
 
         each_process_with_index do |pid_file, idx|
-          (fetch(:sneakers_start_timeout)/check_interval).round.times do |index|
+          2.times do |index|
             if pid_file_exists?(pid_file) && process_exists?(pid_file)
               sleep(check_interval)
               next
