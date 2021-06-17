@@ -4,7 +4,7 @@ require 'capistrano/sneakers/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "capistrano-sneakers"
-  spec.version       = Capistrano::Sneakers::VERSION
+  spec.version       = Capistrano::SneakersVERSION
   spec.authors       = ["Karl Kloppenborg, Andrew Babichev, NaixSpirit"]
   spec.email         = ["k@rl.ag", "andrew.babichev@gmail.com", "neverlandxy.naix@gmail.com"]
   spec.summary       = %q{Sneakers integration for Capistrano}

@@ -1,3 +1,5 @@
+git_plugin = self
+
 namespace :load do
   task :defaults do
     set :monit_bin, '/usr/bin/monit'
