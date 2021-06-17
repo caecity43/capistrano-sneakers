@@ -1,0 +1,25 @@
+[Unit]
+Description=sneakers for <%= "#{fetch(:application)} (#{fetch(:stage)})" %>
+After=syslog.target network.target
+
+[Service]
+Type=simple
+WorkingDirectory=<%= File.join(fetch(:deploy_to), 'current') %>
+ExecStart=RAILS_ENV=<%= fetch(:sneakers_env) %> WORKERS=<%= fetch(:sneakers_workers).join(',') %> <%= SSHKit.config.command_map[:bundle] %> exec sneakers:run
+ExecReload=/bin/kill -TSTP $MAINPID
+ExecStop=/bin/kill -TERM $MAINPID
+<%="StandardOutput=append:#{fetch(:sneakers_log)}" if fetch(:sneakers_log) %>
+<%="StandardError=append:#{fetch(:sneakers_error_log)}" if fetch(:sneakers_error_log) %>
+<%="User=#{sneakers_user}" if sneakers_user %>
+<%="EnvironmentFile=#{fetch(:sneakers_service_unit_env_file)}" if fetch(:sneakers_service_unit_env_file) %>
+<% fetch(:sneakers_service_unit_env_vars, []).each do |environment_variable| %>
+  <%="Environment=#{environment_variable}" %>
+<% end %>
+
+RestartSec=1
+Restart=on-failure
+
+SyslogIdentifier=sneakers
+
+[Install]
+WantedBy=default.target
