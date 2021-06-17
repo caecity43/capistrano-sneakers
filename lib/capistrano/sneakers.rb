@@ -27,4 +27,4 @@ end
 
 require_relative 'sneakers/helpers'
 require_relative 'sneakers/systemd'
-require_relative 'sneakers/monit'
+# require_relative 'sneakers/monit'

@@ -1,3 +1,3 @@
 module Capistrano
-  SneakersVERSION = "0.2.9"
+  SneakersVERSION = "0.2.10"
 end
