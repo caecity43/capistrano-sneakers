@@ -5,7 +5,7 @@ After=syslog.target network.target
 [Service]
 Type=simple
 WorkingDirectory=<%= File.join(fetch(:deploy_to), 'current') %>
-ExecStart=RAILS_ENV=<%= fetch(:sneakers_env) %> WORKERS=<%= fetch(:sneakers_workers).join(',') %> <%= SSHKit.config.command_map[:bundle] %> exec sneakers:run
+ExecStart=RAILS_ENV=<%= fetch(:sneakers_env) %> WORKERS=<%= fetch(:sneakers_workers).join(',') %> <%= SSHKit.config.command_map[:bundle] %> exec rake sneakers:run
 ExecReload=/bin/kill -TSTP $MAINPID
 ExecStop=/bin/kill -TERM $MAINPID
 <%="StandardOutput=append:#{fetch(:sneakers_log)}" if fetch(:sneakers_log) %>
