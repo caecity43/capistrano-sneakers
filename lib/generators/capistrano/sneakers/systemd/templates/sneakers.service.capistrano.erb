@@ -3,9 +3,11 @@ Description=sneakers for <%= "#{fetch(:application)} (#{fetch(:stage)})" %>
 After=syslog.target network.target
 
 [Service]
+Environment=RAILS_ENV=<%= fetch(:sneakers_env) %>
+Environment=WORKERS=<%= fetch(:sneakers_workers).join(',') %>
 Type=simple
 WorkingDirectory=<%= File.join(fetch(:deploy_to), 'current') %>
-ExecStart=RAILS_ENV=<%= fetch(:sneakers_env) %> WORKERS=<%= fetch(:sneakers_workers).join(',') %> <%= SSHKit.config.command_map[:bundle] %> exec rake sneakers:run
+ExecStart=<%= SSHKit.config.command_map[:bundle] %> exec rake sneakers:run
 ExecReload=/bin/kill -TSTP $MAINPID
 ExecStop=/bin/kill -TERM $MAINPID
 <%="StandardOutput=append:#{fetch(:sneakers_log)}" if fetch(:sneakers_log) %>
